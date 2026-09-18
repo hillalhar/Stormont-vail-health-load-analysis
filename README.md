@@ -4,7 +4,7 @@
 
 *Bagaimana hambatan sosial (transportasi & keuangan) mendorong pasien ke Unit Gawat Darurat, dan apa nilai finansial dari memperbaikinya.*
 
-> **Catatan Dataset:** Data yang digunakan dalam analisis ini bersifat **private access** dan **tidak dipublikasikan di Kaggle** maupun platform publik lainnya. Dataset hanya tersedia bagi peserta yang berwenang dalam konteks ASA DataFest 2026 dan tidak dapat dibagikan ulang.
+> **Catatan Dataset:** Data yang digunakan dalam analisis ini bersifat **private access** dan **tidak dipublikasikan di Kaggle** maupun platform publik lainnya. Dataset hanya tersedia bagi peserta yang berwenang dalam konteks ASA DataFest 2026 dan tidak dapat dibagikan ulang. Project ini murni hanya menampilkan hasil analisis
 
 ---
 
