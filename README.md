@@ -1,36 +1,36 @@
-# Stormont Vail Health — Load Analysis Executive Summary
+# Stormont Vail Health Load Analysis Executive Summary
 
 **ASA DataFest 2026 · Team Immortal**
 
-*Bagaimana hambatan sosial (transportasi & keuangan) mendorong pasien ke Unit Gawat Darurat, dan apa nilai finansial dari memperbaikinya.*
+Bagaimana hambatan sosial (transportasi & keuangan) mendorong pasien ke Unit Gawat Darurat, dan apa nilai finansial dari memperbaikinya.
 
-> **Catatan Dataset:** Data yang digunakan dalam analisis ini bersifat **private access** dan **tidak dipublikasikan di Kaggle** maupun platform publik lainnya. Dataset hanya tersedia bagi peserta yang berwenang dalam konteks ASA DataFest 2026 dan tidak dapat dibagikan ulang. Project ini murni hanya menampilkan hasil analisis
+> **Catatan Dataset:** Data yang digunakan dalam analisis ini bersifat **private access** dan **tidak dipublikasikan di Kaggle** maupun platform publik lainnya. Dataset hanya tersedia bagi peserta yang berwenang dalam konteks ASA DataFest 2026 dan tidak dapat dibagikan ulang.
 
 ---
 
-## 1. Problem Definition — Apa yang Ingin Dijawab
+## 1. Problem Definition
 
-Stormont Vail Health (SVH) menangani ratusan ribu pasien setiap tahunnya — 238.471 pasien unik tercatat sepanjang 2025. Mayoritas interaksi ini berjalan lancar lewat jalur rawat jalan (outpatient). Tapi ada satu titik yang terus jadi beban: Unit Gawat Darurat (Emergency Department / ED). Mahal untuk dioperasikan, dan yang lebih penting, bebannya terus berulang dari tahun ke tahun.
+Stormont Vail Health (SVH) menangani ratusan ribu pasien setiap tahunnya dimana 238.471 pasien unik tercatat sepanjang 2025. Mayoritas interaksi ini berjalan lancar lewat jalur rawat jalan (outpatient). Tapi ada satu titik yang terus jadi beban yaitu Unit Gawat Darurat (Emergency Department / ED). Mahal untuk dioperasikan, dan yang lebih penting, bebannya terus berulang dari tahun ke tahun.
 
-Asumsi yang biasa dipegang tim operasional rumah sakit sederhana: pasien datang ke ED karena kondisinya memburuk mendadak. Analisis ini justru ingin menguji ulang asumsi tersebut, dengan satu hipotesis yang jadi titik berangkat:
+Asumsi yang biasa dipegang tim operasional rumah sakit sederhana, pasien datang ke ED karena kondisinya memburuk mendadak. Analisis ini justru ingin menguji ulang asumsi tersebut, dengan satu hipotesis yang jadi titik berangkat
 
 > Pasien rentan sering datang ke ED bukan semata karena kondisi darurat — melainkan karena ED menjadi **jalan terakhir** setelah akses ke perawatan rutin mereka terhambat, entah karena tidak punya transportasi atau karena kondisi finansial yang sulit.
 
 Dari hipotesis itu, analisis ini disusun untuk menjawab empat pertanyaan besar:
 
 1. **Disparitas utama** — Apakah pasien dengan hambatan sosial benar-benar lebih sering ke ED dibanding yang tidak?
-2. **Risiko majemuk** — Kalau seseorang menghadapi hambatan transportasi *dan* keuangan sekaligus, apakah risikonya berlipat ganda?
+2. **Risiko majemuk** — Kalau seseorang menghadapi hambatan transportasi _dan_ keuangan sekaligus, apakah risikonya berlipat ganda?
 3. **Profil klinis** — Kunjungan ED mereka itu benar keadaan darurat mendadak, atau sebenarnya penyakit kronis yang bisa ditangani di klinik biasa?
 4. **Alur sistem & dampak ekonomi** — Di mana letak kemacetan pada jaringan rujukan, dan seberapa besar potensi penghematan jika ini diperbaiki?
 
 Untuk menjawabnya, pasien dikelompokkan ke dalam empat kategori yang dipakai konsisten di seluruh analisis:
 
-| Kelompok | Definisi |
-|---|---|
-| **No Barrier** | Tidak ada hambatan transportasi maupun keuangan |
-| **Financial Only** | Hanya hambatan keuangan |
-| **Transport Only** | Hanya hambatan transportasi |
-| **Both Barriers** | Menghadapi kedua hambatan sekaligus |
+| Kelompok           | Definisi                                        |
+| ------------------ | ----------------------------------------------- |
+| **No Barrier**     | Tidak ada hambatan transportasi maupun keuangan |
+| **Financial Only** | Hanya hambatan keuangan                         |
+| **Transport Only** | Hanya hambatan transportasi                     |
+| **Both Barriers**  | Menghadapi kedua hambatan sekaligus             |
 
 ---
 
@@ -40,22 +40,22 @@ Untuk menjawabnya, pasien dikelompokkan ke dalam empat kategori yang dipakai kon
 
 ![Encounter composition, tren bulanan, dan ranking hambatan sosial](assets/fig_cell05_0.png)
 
-Kalau dilihat dari komposisinya, ED sebenarnya cuma **5,0%** dari total encounter — outpatient jauh mendominasi dengan **92,8%**. Tapi jangan salah, angka kecil ini tetap besar secara absolut dan terus tumbuh stabil dari 2022 sampai 2025. Saat menyaring domain hambatan sosial yang ada, dua nama ini paling menonjol sebagai penghambat akses: **Transportation Needs (164.273)** dan **Financial Resource Strain (150.323)**.
+Kalau dilihat dari komposisinya, ED sebenarnya cuma **5,0%** dari total encounter, artinya outpatient jauh mendominasi dengan **92,8%**. Tapi jangan salah, angka kecil ini tetap besar secara absolut dan terus tumbuh stabil dari 2022 sampai 2025. Saat menyaring domain hambatan sosial yang ada, dua nama ini paling menonjol sebagai penghambat akses: **Transportation Needs (164.273)** dan **Financial Resource Strain (150.323)**.
 
 ### 2.2 Headline: Hambatan Sosial Mendorong Pemakaian ED Secara Sistematis
 
 ![Tingkat pemakaian ED dan frekuensi kunjungan per kelompok hambatan](assets/fig_cell09_0.png)
 
-Dari 359.760 pasien yang ada, 61.446 di antaranya disaring khusus untuk melihat hambatan sosial mereka. Dan begitu pola pemakaian ED dipetakan, arahnya jelas: makin berat beban hambatan yang ditanggung, makin sering pula mereka lari ke ED.
+Dari 359.760 pasien yang ada, 61.446 di antaranya disaring khusus untuk melihat hambatan sosial mereka. Dan begitu pola pemakaian ED dipetakan, jelas terlihat pola dimana makin berat beban hambatan yang ditanggung, makin sering pula mereka lari ke ED.
 
-| Kelompok | Rata-rata ED Rate | Pasien dengan ≥1 kunjungan ED | Rata-rata total kunjungan (4 thn) |
-|---|---|---|---|
-| No Barrier | 3,01% | 41,6% (CI 41,2–42,0) | 52,60 |
-| Financial Only | 5,39% | 57,4% (CI 55,6–59,2) | 61,31 |
-| Transport Only | 6,43% | 63,9% (CI 61,4–66,4) | 79,46 |
-| **Both Barriers** | **13,44%** | **71,2% (CI 68,9–73,4)** | 62,94 |
+| Kelompok          | Rata-rata ED Rate | Pasien dengan ≥1 kunjungan ED | Rata-rata total kunjungan (4 thn) |
+| ----------------- | ----------------- | ----------------------------- | --------------------------------- |
+| No Barrier        | 3,01%             | 41,6% (CI 41,2–42,0)          | 52,60                             |
+| Financial Only    | 5,39%             | 57,4% (CI 55,6–59,2)          | 61,31                             |
+| Transport Only    | 6,43%             | 63,9% (CI 61,4–66,4)          | 79,46                             |
+| **Both Barriers** | **13,44%**        | **71,2% (CI 68,9–73,4)**      | 62,94                             |
 
-Uji Kruskal-Wallis mengonfirmasi gradien ini memang sangat signifikan (H = 1.719,35; p < 0,001). Yang paling mencolok, pasien Both Barriers rata-rata mengalami **5,98 kunjungan ED** — hampir 5x lipat dari baseline 1,25.
+Uji Kruskal-Wallis mengonfirmasi gradien ini memang sangat signifikan (H = 1.719,35; p < 0,001). Yang paling mencolok, pasien Both Barriers rata-rata mengalami **5,98 kunjungan ED**, hampir 5x lipat dari baseline 1,25.
 
 ### 2.3 Beban per Perjalanan Penyakit (Disease Journey)
 
@@ -67,9 +67,9 @@ Ketika ditelusuri lebih dalam ke level "disease journey" (perjalanan satu pasien
 
 ![Probabilitas kunjungan ED: ada hambatan vs tidak, dan per kombinasi](assets/fig_cell14_0.png)
 
-Di level disease journey ini pula perbedaannya jadi paling terasa. Journey yang punya hambatan sosial berujung ke ED sebanyak **40,1%**, sementara yang tanpa hambatan hanya **8,4%** (χ² = 6.074,02; p < 0,001). Kalau dipecah per kombinasi, urutannya begini: **Both Barriers 51,4%**, lalu Transport Only 39,4%, Financial Only 33,2%, dan No Barrier di angka 8,4%.
+Di level disease journey ini pula perbedaannya jadi paling terasa. Journey yang punya hambatan sosial berujung ke ED sebanyak **40,1%**, sementara yang tanpa hambatan hanya **8,4%** (χ² = 6.074,02; p < 0,001). Kalau dipecah per kombinasi, urutannya menjadi **Both Barriers 51,4%**, lalu Transport Only 39,4%, Financial Only 33,2%, dan No Barrier di angka 8,4%.
 
-Pola ini menunjukkan sesuatu yang penting: dua hambatan yang datang bersamaan tidak sekadar menjumlah risikonya, tapi justru **melipatgandakannya**.
+Pola ini menunjukkan sesuatu yang penting, dua hambatan yang datang bersamaan tidak sekadar menjumlah risikonya, tapi justru melipatgandakannya.
 
 ### 2.5 Spektrum Klinis: Penyakit Kronis Mendominasi
 
@@ -95,16 +95,16 @@ Kenapa bisa begitu? Jawabannya ada di usia. Pasien dengan hambatan finansial cen
 
 ![Adjusted odds ratio ED visit dari regresi logistik](assets/fig_cell23_0.png)
 
-Sampai di sini, wajar kalau muncul pertanyaan: jangan-jangan semua pola di atas cuma karena pasien berhambatan memang lebih tua atau lebih sakit? Untuk menjawabnya, dilakukan regresi logistik yang mengontrol usia, jenis kelamin, dan beban komorbiditas sekaligus. Hasilnya, hambatan sosial tetap berpengaruh kuat dan signifikan (Reference = No Barrier):
+Sampai di sini, wajar kalau muncul pertanyaan jangan-jangan semua pola di atas cuma karena pasien berhambatan memang lebih tua atau lebih sakit? Untuk menjawabnya, dilakukan regresi logistik yang mengontrol usia, jenis kelamin, dan beban komorbiditas sekaligus. Hasilnya, hambatan sosial tetap berpengaruh kuat dan signifikan (Reference = No Barrier):
 
-| Prediktor | Adjusted Odds Ratio | 95% CI | Makna |
-|---|---|---|---|
-| **Both Barriers** | **4,57** | 3,97–5,26 | Peluang ED >4,5x lipat |
-| Transport Only | 2,41 | 2,04–2,85 | Peluang ED >2x lipat |
-| Financial Only | 1,82 | 1,59–2,08 | Peluang ED +82% |
-| Comorbidity (per diagnosis) | 1,07 | — | Tiap tambahan penyakit menaikkan peluang |
+| Prediktor                   | Adjusted Odds Ratio | 95% CI    | Makna                                    |
+| --------------------------- | ------------------- | --------- | ---------------------------------------- |
+| **Both Barriers**           | **4,57**            | 3,97–5,26 | Peluang ED >4,5x lipat                   |
+| Transport Only              | 2,41                | 2,04–2,85 | Peluang ED >2x lipat                     |
+| Financial Only              | 1,82                | 1,59–2,08 | Peluang ED +82%                          |
+| Comorbidity (per diagnosis) | 1,07                | —         | Tiap tambahan penyakit menaikkan peluang |
 
-Semua hasil ini signifikan secara statistik (p < 0,001). Kesimpulannya jadi tegas: migrasi ke ED **bukan sekadar karena pasien "lebih sakit"**. Pada usia dan kompleksitas klinis yang setara, hambatan sosial tetap memaksa pasien untuk lari ke ED.
+Semua hasil ini signifikan secara statistik (p < 0,001). Kesimpulannya jadi tegas, migrasi ke ED **bukan sekadar karena pasien "lebih sakit"**. Pada usia dan kompleksitas klinis yang setara, hambatan sosial tetap memaksa pasien untuk lari ke ED.
 
 ### 2.9 Digital Health Divide: Penolak MyChart adalah "Power Users"
 
@@ -114,13 +114,13 @@ Ada satu temuan menarik di luar topik utama tapi cukup relevan untuk strategi in
 
 ![Profil demografi & diagnosis penolak MyChart frekuensi tinggi](assets/fig_cell29_0.png)
 
-Ditelusuri lebih jauh, penolak frekuensi tinggi ini didominasi **lansia (lahir ≤ 1965)** dengan riwayat penyakit kronis (χ² = 1.577,17; p < 0,001) — justru kelompok yang paling butuh koordinasi perawatan berkelanjutan.
+Ditelusuri lebih jauh, penolak frekuensi tinggi ini didominasi **lansia (lahir ≤ 1965)** dengan riwayat penyakit kronis (χ² = 1.577,17; p < 0,001), dimana ini justru kelompok yang paling butuh koordinasi perawatan berkelanjutan.
 
 ### 2.10 Kapasitas Provider & Bottleneck Jadwal
 
 ![Rasio pasien-provider vs interval kunjungan antar spesialisasi](assets/fig_cell34_0.png)
 
-Bergeser ke sisi operasional: apakah kemacetan jadwal follow-up disebabkan provider yang kekurangan tenaga? Ternyata tidak sesederhana itu. Beban provider (pasien per dokter) **tidak berkorelasi linear** dengan lamanya interval follow-up (r = 0,058; p = 0,697). Artinya kemacetan jadwal bersifat **spesifik per spesialisasi**, bukan sekadar soal rasio pasien-dokter secara umum.
+Bergeser ke sisi operasional, apakah kemacetan jadwal follow-up disebabkan provider yang kekurangan tenaga? Ternyata tidak sesederhana itu. Beban provider (pasien per dokter) **tidak berkorelasi linear** dengan lamanya interval follow-up (r = 0,058; p = 0,697). Artinya kemacetan jadwal bersifat **spesifik per spesialisasi**, bukan sekadar soal rasio pasien-dokter secara umum.
 
 ![Alur rujukan antar departemen setelah ED (network flow)](assets/fig_cell36_0.png)
 
@@ -130,11 +130,11 @@ Saat alur rujukan antar-departemen dipetakan sebagai jaringan, titik-titik yang 
 
 Distribusi interval follow-up-nya sendiri sangat right-skewed dengan outlier ekstrem (H = 7.363,30; p < 0,001) — sebagian pasien menunggu jauh lebih lama dari median, dan ini paling terasa di spesialisasi-spesialisasi yang paling padat.
 
-### 2.11 Pemodelan Finansial: Nilai dari Redireksi ED
+### 2.11 Nilai dari Redireksi ED
 
 ![Estimasi kunjungan ED yang bisa dihindari](assets/fig_cell40_0.png)
 
-Pertanyaan terakhir: seberapa besar nilai uang di balik semua ini? Dengan benchmark biaya HCUP (ED ~$2.200; outpatient ~$250; selisih ~$1.950 per encounter), gambarannya jadi jelas:
+seberapa besar nilai uang di balik semua ini? Dengan benchmark biaya HCUP (ED ~$2.200; outpatient ~$250; selisih ~$1.950 per encounter), gambarannya jadi jelas:
 
 - Populasi terdampak transportasi: **2.986 pasien**
 - Kunjungan ED aktual (4 tahun): **14.445**
@@ -142,19 +142,19 @@ Pertanyaan terakhir: seberapa besar nilai uang di balik semua ini? Dengan benchm
 - **Kelebihan (berpotensi dihindari): 8.063 kunjungan** (~2.016/tahun)
 - ED rate transport-affected 6,82% vs baseline 2,37% (z = 122,36; p < 0,001)
 
-Selisih antara angka aktual dan ekspektasi ini bukan kebetulan — itu ruang penghematan yang nyata kalau hambatan transportasinya diatasi.
+Masalah transportasi ini menciptakan efek domino yang mahal. Pasien kesulitan berobat rutin, kondisi mereka telat ditangani hingga akhirnya terpaksa lari ke IGD, dan sistem kesehatan pun harus menanggung biaya yang jauh lebih tinggi dari yang seharusnya.
 
 ![Proyeksi penghematan tahunan pada berbagai skenario redireksi](assets/fig_cell40_1.png)
 
-| Skenario | % Diredireksi | Kunjungan ED dihindari/tahun | Estimasi Penghematan Tahunan |
-|---|---|---|---|
-| Konservatif | 25% | 504 | **$982.630** |
-| Moderat | 50% | 1.008 | **$1.965.260** |
-| Batas Atas | 75% | 1.512 | **$2.947.890** |
+| Skenario    | % Diredireksi | Kunjungan ED dihindari/tahun | Estimasi Penghematan Tahunan |
+| ----------- | ------------- | ---------------------------- | ---------------------------- |
+| Konservatif | 25%           | 504                          | **$982.630**                 |
+| Moderat     | 50%           | 1.008                        | **$1.965.260**               |
+| Batas Atas  | 75%           | 1.512                        | **$2.947.890**               |
 
 ---
 
-## 3. Arti dari Temuan
+## 3. Key Findings
 
 Kalau seluruh temuan di atas dirangkai jadi satu cerita, alurnya cukup jelas:
 
